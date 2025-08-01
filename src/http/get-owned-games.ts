@@ -20,7 +20,7 @@ export interface IGetOwnedGamesResponse {
 export async function getOwnedGames(
   steamId: string,
 ): Promise<IGetOwnedGamesResponse> {
-  const apiUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_SECRET}&steamid=${steamId}&format=json`
+  const apiUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_SECRET}&steamid=${steamId}&format=json&include_appinfo=true`
 
   const response = await fetch(apiUrl)
 
