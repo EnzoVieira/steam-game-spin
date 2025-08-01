@@ -10,7 +10,7 @@ export default function DashboardLayout({
     <SessionProvider>
       <Header />
 
-      <main className="min-h-screen">{children}</main>
+      <main className="mt-12 px-4 min-h-[calc(100dvh-80px)]">{children}</main>
     </SessionProvider>
   )
 }
