@@ -1,4 +1,4 @@
-import { LogoutButton } from "@/components/logout-button"
+import { Header } from "@/components/header"
 import SessionProvider from "@/context/session-provider"
 
 export default function DashboardLayout({
@@ -8,10 +8,8 @@ export default function DashboardLayout({
 }>) {
   return (
     <SessionProvider>
-      <header>
-        <h1>Logo</h1>
-        <LogoutButton />
-      </header>
+      <Header />
+
       <main className="min-h-screen">{children}</main>
     </SessionProvider>
   )
