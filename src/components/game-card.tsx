@@ -30,7 +30,7 @@ export function GameCard({ game, className, ...rest }: IGameCardProps) {
       </header>
 
       <footer className="mt-2">
-        <p className="text-sm font-medium">
+        <p className="text-sm font-medium text-muted-foreground">
           Playtime: {game.playtime_forever} minutes
         </p>
       </footer>
