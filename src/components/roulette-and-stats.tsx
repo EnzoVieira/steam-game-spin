@@ -1,22 +1,27 @@
 import { Clock, Gamepad } from "lucide-react"
 import { Roulette } from "./roulette"
+import { type IGame } from "@/http/get-owned-games"
 
-export function RouletteAndStats() {
+interface IRouletteAndStatsProps {
+  games: IGame[]
+}
+
+export async function RouletteAndStats({ games }: IRouletteAndStatsProps) {
   return (
     <div className="sticky top-12 h-fit">
-      <Roulette className="mb-4" />
+      <Roulette className="mb-4" games={games} />
 
-      <Stats />
+      <Stats games={games} />
     </div>
   )
 }
 
-function Stats() {
+function Stats({ games }: IRouletteAndStatsProps) {
   return (
     <div className="flex gap-x-4">
       <div className="border rounded-lg p-6 flex flex-1 flex-col items-center">
         <Gamepad className="size-6 mb-2" />
-        <strong className="text-2xl">12</strong>
+        <strong className="text-2xl">{games.length}</strong>
         <span className="text-muted-foreground">Total games</span>
       </div>
 

@@ -1,24 +1,35 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { cn, getRandomElement } from "@/lib/utils"
 import { Shuffle } from "lucide-react"
 import { Button } from "./ui/button"
-import { chooseGameAction } from "@/actions/choose-game"
-import { useAction } from "next-safe-action/hooks"
 import { GameCard } from "./game-card"
 import clsx from "clsx"
 import { useState } from "react"
+import { IGame } from "@/http/get-owned-games"
 
-type RouletteProps = React.ComponentProps<"div">
+interface IRouletteProps extends React.ComponentProps<"div"> {
+  games: IGame[]
+}
 
-export function Roulette({ className, ...rest }: RouletteProps) {
+export function Roulette({ className, games, ...rest }: IRouletteProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const { executeAsync, result, hasSucceeded } = useAction(chooseGameAction)
+  const [selectedGame, setSelectedGame] = useState<IGame | null>(null)
 
   async function handleSpin() {
     setIsLoading(true)
-    await executeAsync()
     await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate a delay for the spinning effect
+
+    const gamesNeverPlayed = games.filter((game) => game.playtime_forever === 0)
+
+    const randomGame = getRandomElement(gamesNeverPlayed)
+
+    if (!randomGame) {
+      setIsLoading(false)
+      return
+    }
+
+    setSelectedGame(randomGame)
     setIsLoading(false)
   }
 
@@ -47,8 +58,8 @@ export function Roulette({ className, ...rest }: RouletteProps) {
         Spin the Roulette
       </Button>
 
-      {hasSucceeded && !isLoading && result.data?.game && (
-        <GameCard game={result.data.game} className="mt-6 w-full" />
+      {selectedGame && !isLoading && (
+        <GameCard game={selectedGame} className="mt-6 w-full" />
       )}
     </div>
   )

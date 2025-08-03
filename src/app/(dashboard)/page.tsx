@@ -1,19 +1,18 @@
 import { Games } from "@/components/games"
 import { RouletteAndStats } from "@/components/roulette-and-stats"
 import { getAuthOptions } from "@/config/auth"
+import { getOwnedGames } from "@/http/get-owned-games"
 import { getServerSession } from "next-auth"
-import { Suspense } from "react"
 
 export default async function Home() {
   const session = (await getServerSession(getAuthOptions()))!
+  const ownedGames = await getOwnedGames(session.user.steam.steamid)
 
   return (
     <main className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <RouletteAndStats />
+      <RouletteAndStats games={ownedGames.games} />
 
-      <Suspense fallback={<p>Loading games...</p>}>
-        <Games className="lg:col-span-2" steamId={session.user.steam.steamid} />
-      </Suspense>
+      <Games className="lg:col-span-2" games={ownedGames.games} />
     </main>
   )
 }
