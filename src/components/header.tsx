@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header className="p-4 border-b flex items-center justify-between h-20">
       <div className="flex gap-3.5 items-center">
-        <div className="size-12 rounded-sm flex items-center justify-center bg-red-500">
+        <div className="size-12 rounded-sm flex items-center justify-center gradient">
           <Gamepad2 className="size-8 text-white" />
         </div>
 
