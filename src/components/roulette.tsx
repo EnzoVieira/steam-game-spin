@@ -4,10 +4,15 @@ import { cn } from "@/lib/utils"
 import { Shuffle } from "lucide-react"
 import { Button } from "./ui/button"
 import { chooseGameAction } from "@/actions/choose-game"
+import { useAction } from "next-safe-action/hooks"
+import { GameCard } from "./game-card"
 
 type RouletteProps = React.ComponentProps<"div">
 
 export function Roulette({ className, ...rest }: RouletteProps) {
+  const { execute, isExecuting, result, hasSucceeded } =
+    useAction(chooseGameAction)
+
   return (
     <div
       className={cn(
@@ -26,11 +31,16 @@ export function Roulette({ className, ...rest }: RouletteProps) {
       <Button
         className="mt-4 gradient text-white"
         size="lg"
-        onClick={async () => await chooseGameAction()}
+        disabled={isExecuting}
+        onClick={() => execute()}
       >
         <Shuffle className="size-4" />
         Spin the Roulette
       </Button>
+
+      {hasSucceeded && result.data?.game && (
+        <GameCard game={result.data.game} className="mt-6 w-full" />
+      )}
     </div>
   )
 }
