@@ -15,7 +15,7 @@ interface IRouletteAndStatsProps {
 
 export async function RouletteAndStats({ games }: IRouletteAndStatsProps) {
   return (
-    <div className="sticky top-12 h-fit">
+    <div className="lg:sticky lg:top-12 h-fit">
       <Roulette className="mb-4" games={games} />
 
       <Stats games={games} />
