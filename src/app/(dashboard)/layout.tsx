@@ -1,5 +1,5 @@
 import { Header } from "@/components/header"
-import SessionProvider from "@/context/session-provider"
+import { Providers } from "@/context"
 
 export default function DashboardLayout({
   children,
@@ -7,10 +7,10 @@ export default function DashboardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <SessionProvider>
+    <Providers>
       <Header />
 
       <main className="mt-12 px-4 min-h-[calc(100dvh-80px)]">{children}</main>
-    </SessionProvider>
+    </Providers>
   )
 }
