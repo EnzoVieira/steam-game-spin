@@ -1,20 +1,12 @@
 import { Clock, Gamepad } from "lucide-react"
+import { Roulette } from "./roulette"
 
 export function RouletteAndStats() {
   return (
     <div className="sticky top-12 h-fit">
-      <Roulette />
+      <Roulette className="mb-4" />
 
       <Stats />
-    </div>
-  )
-}
-
-function Roulette() {
-  return (
-    <div className="border rounded-lg p-6 mb-4">
-      <h3 className="text-2xl font-bold">Steam Games Roulette</h3>
-      <p className="text-muted-foreground">6 unplayed games</p>
     </div>
   )
 }
