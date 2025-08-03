@@ -22,7 +22,11 @@ export function GameCard({ game, className, ...rest }: IGameCardProps) {
           <h3 className="text-xl font-semibold">{game.name}</h3>
         </div>
 
-        {game.playtime_forever === 0 && <Badge>Unplayed</Badge>}
+        {game.playtime_forever === 0 && (
+          <div>
+            <Badge>Unplayed</Badge>
+          </div>
+        )}
       </header>
 
       <footer className="mt-2">
