@@ -46,7 +46,9 @@ export function Roulette({ className, games, ...rest }: IRouletteProps) {
       </div>
 
       <h3 className="text-lg font-bold">Steam Games Roulette</h3>
-      <p className="text-muted-foreground">6 unplayed games available</p>
+      <p className="text-muted-foreground text-sm">
+        Spin the wheel to find a new game to play!
+      </p>
 
       <Button
         className="mt-4 gradient text-white"
