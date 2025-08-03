@@ -1,5 +1,6 @@
 import { IGame } from "@/http/get-owned-games"
 import { cn } from "@/lib/utils"
+import { Badge } from "./ui/badge"
 
 interface IGameCardProps extends React.ComponentProps<"article"> {
   game: IGame
@@ -21,7 +22,7 @@ export function GameCard({ game, className, ...rest }: IGameCardProps) {
           <h3 className="text-xl font-semibold">{game.name}</h3>
         </div>
 
-        <span className="text-sm">Unplayed</span>
+        {game.playtime_forever === 0 && <Badge>Unplayed</Badge>}
       </header>
 
       <footer className="mt-2">
