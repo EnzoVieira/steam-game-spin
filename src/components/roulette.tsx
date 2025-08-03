@@ -6,12 +6,21 @@ import { Button } from "./ui/button"
 import { chooseGameAction } from "@/actions/choose-game"
 import { useAction } from "next-safe-action/hooks"
 import { GameCard } from "./game-card"
+import clsx from "clsx"
+import { useState } from "react"
 
 type RouletteProps = React.ComponentProps<"div">
 
 export function Roulette({ className, ...rest }: RouletteProps) {
-  const { execute, isExecuting, result, hasSucceeded } =
-    useAction(chooseGameAction)
+  const [isLoading, setIsLoading] = useState(false)
+  const { executeAsync, result, hasSucceeded } = useAction(chooseGameAction)
+
+  async function handleSpin() {
+    setIsLoading(true)
+    await executeAsync()
+    await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate a delay for the spinning effect
+    setIsLoading(false)
+  }
 
   return (
     <div
@@ -22,7 +31,7 @@ export function Roulette({ className, ...rest }: RouletteProps) {
       {...rest}
     >
       <div className="size-32 gradient rounded-full flex items-center justify-center mb-4">
-        <Shuffle className="size-14" />
+        <Shuffle className={clsx("size-14", { "animate-spin": isLoading })} />
       </div>
 
       <h3 className="text-lg font-bold">Steam Games Roulette</h3>
@@ -31,14 +40,14 @@ export function Roulette({ className, ...rest }: RouletteProps) {
       <Button
         className="mt-4 gradient text-white"
         size="lg"
-        disabled={isExecuting}
-        onClick={() => execute()}
+        isLoading={isLoading}
+        onClick={handleSpin}
       >
         <Shuffle className="size-4" />
         Spin the Roulette
       </Button>
 
-      {hasSucceeded && result.data?.game && (
+      {hasSucceeded && !isLoading && result.data?.game && (
         <GameCard game={result.data.game} className="mt-6 w-full" />
       )}
     </div>
