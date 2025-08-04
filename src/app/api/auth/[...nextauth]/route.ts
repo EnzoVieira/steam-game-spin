@@ -3,9 +3,9 @@ import NextAuth from "next-auth"
 import { NextRequest } from "next/server"
 
 interface IContext {
-  params: {
+  params: Promise<{
     nextauth: string[]
-  }
+  }>
 }
 
 async function auth(req: NextRequest, ctx: IContext) {
