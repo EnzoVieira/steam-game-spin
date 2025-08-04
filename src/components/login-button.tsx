@@ -2,16 +2,16 @@
 
 import { signIn } from "next-auth/react"
 import { Button } from "./ui/button"
-import { LogIn } from "lucide-react"
+import { SteamIcon } from "./icons/SteamIcon"
 
 export function LoginButton() {
   return (
     <Button
-      className="gradient text-white w-full"
+      className="bg-black hover:bg-[#1b2838] text-white w-full"
       size="lg"
       onClick={() => signIn("steam", { callbackUrl: "/" })}
     >
-      <LogIn className="mr-2 size-4" />
+      <SteamIcon className="size-4" />
       Login with Steam
     </Button>
   )
