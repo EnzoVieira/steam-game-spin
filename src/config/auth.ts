@@ -4,6 +4,9 @@ import { NextRequest } from "next/server"
 
 export function getAuthOptions(req?: NextRequest): AuthOptions {
   return {
+    pages: {
+      signIn: "/login",
+    },
     providers: req
       ? [
           Steam(req, {
